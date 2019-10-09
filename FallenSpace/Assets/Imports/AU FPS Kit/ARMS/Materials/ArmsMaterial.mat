@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ArmsMaterial
+  m_Shader: {fileID: 21, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AnisoDirection:
+        m_Texture: {fileID: 2800000, guid: 7af52638665917945b694ef5688b4382, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BRDFTex:
+        m_Texture: {fileID: 2800000, guid: fa42c8f60b8c0eb488176b3b7e5dba61, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 2800000, guid: 02f24cb702a05403b8348d608877e2ee, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Cube:
+        m_Texture: {fileID: 8900000, guid: 197bc736aaa0d5440967c3da07b94119, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlowMapS:
+        m_Texture: {fileID: 2800000, guid: 223075c91d6c26c4c879451df2692493, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Illum:
+        m_Texture: {fileID: 2800000, guid: c792bda3ee4eb0544889078d0c8a2b75, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LavaMapS:
+        m_Texture: {fileID: 2800000, guid: cd5fb34634446c1479595b075bba323d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 21f6ff363e290ca46a1b3dff66217d0b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RimTex:
+        m_Texture: {fileID: 2800000, guid: f69dc9669562642fbb6b93ac3fdc5fc7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecularTex:
+        m_Texture: {fileID: 2800000, guid: 223075c91d6c26c4c879451df2692493, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _WrapTex:
+        m_Texture: {fileID: 2800000, guid: fa42c8f60b8c0eb488176b3b7e5dba61, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _AnisoOffset: -0.35384616
+    - _BumpBias: 0
+    - _CurvatureScale: 0
+    - _Cutoff: 0
+    - _EmissionLM: 0
+    - _Fresnel: 0
+    - _Gamma: 2
+    - _Parallax: 0.005
+    - _Shininess: 0.41716954
+    - _noiseStrength: -1.05
+    - _pulsePeriod: 1.5
+    m_Colors:
+    - _Color: {r: 0.6102941, g: 0.6102941, b: 0.6102941, a: 1}
+    - _Emission: {r: 0, g: 0, b: 0, a: 0}
+    - _LavaColor: {r: 1.15, g: 0, b: 0, a: 0}
+    - _ReflectColor: {r: 0, g: 0, b: 0, a: 0}
+    - _SpecColor: {r: 0.08208954, g: 0.08208954, b: 0.08208954, a: 0}
