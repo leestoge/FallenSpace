@@ -42,6 +42,9 @@ namespace Assets.Imports.Standard_Assets.Characters.FirstPersonCharacter.Scripts
         private bool m_Jumping;
         private AudioSource m_AudioSource;
 
+        // Crouching stuff
+        private bool isCrouching;
+
         // Use this for initialization
         private void Awake()
         {

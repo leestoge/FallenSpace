@@ -32,11 +32,13 @@ public class Crouch : MonoBehaviour
         {
             m_CharacterController.height = m_CrouchHeight;
             m_FPSController.m_WalkSpeed = m_FPSController.m_WalkSpeed / 2;
+            m_CharacterController.center.Set( m_CharacterController.center.x,  m_CharacterController.center.y / 2,  m_CharacterController.center.z);
         }
         else
         {
             m_CharacterController.height = m_originalHeight;
             m_FPSController.m_WalkSpeed = m_FPSController.m_WalkSpeed * 2;
+            m_CharacterController.center.Set(m_CharacterController.center.x, m_CharacterController.center.y * 2, m_CharacterController.center.z);
         }
     }
 }
