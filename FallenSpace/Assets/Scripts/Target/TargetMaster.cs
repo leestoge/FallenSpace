@@ -5,16 +5,20 @@ public class TargetMaster : MonoBehaviour
     public float globalHealth = 100f;
     private Animator _animator;
     private Collider[] hitboxes;
+    private PlayerPoints points;
 
     void Awake()
     {
         _animator = GetComponent<Animator>();
         hitboxes = GetComponentsInChildren<BoxCollider>();
+        points = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerPoints>(); // find player
     }
 
     public void TakeDamageHead(float amount)
     {
         globalHealth -= amount * 2f;
+
+        points.AwardLocationalDamage("head");
 
         if (globalHealth <= 0)
         {
@@ -26,6 +30,8 @@ public class TargetMaster : MonoBehaviour
     {
         globalHealth -= amount * 1.5f;
 
+        points.AwardLocationalDamage("body");
+
         if (globalHealth <= 0)
         {
             targetDowned();
@@ -35,6 +41,8 @@ public class TargetMaster : MonoBehaviour
     public void TakeDamageArms(float amount)
     {
         globalHealth -= amount;
+
+        points.AwardLocationalDamage("limb");
 
         if (globalHealth <= 0)
         {
@@ -46,6 +54,8 @@ public class TargetMaster : MonoBehaviour
     {
         globalHealth -= amount;
 
+        points.AwardLocationalDamage("limb");
+
         if (globalHealth <= 0)
         {
             targetDowned();
@@ -56,11 +66,14 @@ public class TargetMaster : MonoBehaviour
     {
         _animator.SetBool("Downed", true);
 
+        FindObjectOfType<AudioManager>().RandomizePitch("targetDown");
+        FindObjectOfType<AudioManager>().Play("targetDown");
+
         foreach (Collider hitbox in hitboxes)
         {
             hitbox.enabled = false;
         }
 
-        // add points
+        points.AwardElimination();
     }
 }
