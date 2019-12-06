@@ -216,21 +216,21 @@ public class Gun : MonoBehaviour
         {
             Debug.Log(hit.transform.name);
 
-            TargetMaster targetMaster = hit.transform.GetComponentInParent<TargetMaster>();
+            TargetBasic targetBasic = hit.transform.GetComponentInParent<TargetBasic>();
 
-            if (targetMaster != null)
+            if (targetBasic != null)
             {
                 if (hit.transform.name.Contains("HeadHitbox"))
                 {
-                    targetMaster.TakeDamageHead(damage);
+                    targetBasic.TakeDamageHead(damage);
                 }
                 else if (hit.transform.name.Contains("BodyHitbox"))
                 {
-                    targetMaster.TakeDamageBody(damage);
+                    targetBasic.TakeDamageBody(damage);
                 }
                 else if (hit.transform.name.StartsWith("_Minor"))
                 {
-                    targetMaster.TakeDamageArms(damage);
+                    targetBasic.TakeDamageArms(damage);
                 }
             }
 
