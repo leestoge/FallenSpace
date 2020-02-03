@@ -40,6 +40,7 @@ public class Gun : MonoBehaviour
 
     //pistol ADS
     private bool isAiming = false;
+    public GameObject crosshairElement;
 
     public float adsFOV = 80f;
     private float originalFOV = 90f;
@@ -300,10 +301,12 @@ public class Gun : MonoBehaviour
         yield return new WaitForSeconds(.15f);
 
         fpsCam.fieldOfView = adsFOV;
+        crosshairElement.SetActive(false);
     }
 
     void OnUnADS()
     {
         fpsCam.fieldOfView = originalFOV;
+        crosshairElement.SetActive(true);
     }
 }
