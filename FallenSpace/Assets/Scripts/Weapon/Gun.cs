@@ -115,7 +115,7 @@ public class Gun : MonoBehaviour
 
         if (currentAmmo <= 0)
         {
-            StartCoroutine(Reload());
+            StartCoroutine(Reload()); // automatic reload
             return;
         }
 
@@ -183,6 +183,10 @@ public class Gun : MonoBehaviour
 
         if (isRifle)
         {
+            if (Muzzleflash != null)
+            {
+                Muzzleflash.Play();
+            }
             if (rifleSound != null) // mg specific
             {
                 if (currentShotFrame == 0)
