@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 using System.Collections;
+using UnityStandardAssets.Utility;
 
 public class Gun : MonoBehaviour
 {
@@ -62,6 +63,7 @@ public class Gun : MonoBehaviour
     public bool isPistol;
     public bool isRifle;
     public bool isSniper;
+    public bool canADS;
 
     void Awake()
     {
@@ -131,7 +133,7 @@ public class Gun : MonoBehaviour
             return;
         }
 
-        if (isPistol)
+        if (canADS)
         {
             if (Input.GetButtonDown("Fire2"))
             {
@@ -305,12 +307,12 @@ public class Gun : MonoBehaviour
         yield return new WaitForSeconds(.15f);
 
         fpsCam.fieldOfView = adsFOV;
-        crosshairElement.SetActive(false);
+        // crosshairElement.SetActive(false);
     }
 
     void OnUnADS()
     {
         fpsCam.fieldOfView = originalFOV;
-        crosshairElement.SetActive(true);
+        // crosshairElement.SetActive(true);
     }
 }
