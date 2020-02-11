@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 82036971852736996}
   - component: {fileID: 3746539149591214012}
   m_Layer: 0
-  m_Name: Gunshot
+  m_Name: RifleSound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,8 +44,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a51387953603e954cb2f93839860068b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
-  m_Pitch: 1
+  m_Volume: 0.4
+  m_Pitch: 0.9
   Loop: 0
   Mute: 0
   Spatialize: 0
