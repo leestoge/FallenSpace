@@ -1,7 +1,6 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 using System.Collections;
-using UnityStandardAssets.Utility;
 
 public class Gun : MonoBehaviour
 {
@@ -30,6 +29,7 @@ public class Gun : MonoBehaviour
     public ParticleSystem Muzzleflash;
     public GameObject laserShot;
     public GameObject Smoke;
+    public GameObject Steamer;
     private ParticleSystem Steam;
     public Transform smokePos;
     public GameObject Shell;
@@ -115,7 +115,7 @@ public class Gun : MonoBehaviour
             return;
         }
 
-        if (currentAmmo <= 0)
+        if (currentAmmo <= 0) // require reload
         {
             StartCoroutine(Reload()); // automatic reload
             return;
@@ -164,30 +164,38 @@ public class Gun : MonoBehaviour
             FindObjectOfType<AudioManager>().RandomizePitch("pistolFire");
             FindObjectOfType<AudioManager>().Play("pistolFire");
 
-            if (Muzzleflash != null)
+            if (Muzzleflash != null && Smoke != null)
             {
                 Muzzleflash.Play();
+                GameObject smokeIteration = Instantiate(Smoke, Muzzleflash.transform.position, Muzzleflash.transform.rotation);
+                Destroy(smokeIteration, 1.8f);
             }
 
             if (Shell != null)
             {
                 GameObject shellIteration = Instantiate(Shell, shellPos.position, shellPos.rotation);
-                Destroy(shellIteration, 1f);
+               Destroy(shellIteration, 1.5f);
                 isPistol = true;
             }
         }
 
         if (Smoke != null)
         {
-            GameObject smokeIteration = Instantiate(Smoke, smokePos.position, smokePos.rotation);
-            Destroy(smokeIteration, 1.8f);
+            
         }
 
         if (isRifle)
         {
-            if (Muzzleflash != null)
+            if (Muzzleflash != null && Smoke != null)
             {
                 Muzzleflash.Play();
+                GameObject smokeIteration = Instantiate(Smoke, Muzzleflash.transform.position, Muzzleflash.transform.rotation);
+                Destroy(smokeIteration, 1.8f);
+            }
+            if (Steamer != null)
+            {
+                GameObject steamIteration = Instantiate(Steamer, smokePos.position, smokePos.rotation);
+                Destroy(steamIteration, 1.8f);
             }
             if (rifleSound != null) // mg specific
             {
