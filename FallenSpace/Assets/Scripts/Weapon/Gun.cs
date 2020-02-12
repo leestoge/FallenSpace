@@ -120,7 +120,19 @@ public class Gun : MonoBehaviour
 
         if (currentAmmo <= 0) // require reload
         {
-            StartCoroutine(Reload()); // automatic reload
+            //StartCoroutine(Reload()); // automatic reload
+            ADSHandler();
+
+            if (isPistol)
+            {
+                gunAnimator.SetBool("isEmpty", true);
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                StartCoroutine(Reload());
+                return;
+            }
             return;
         }
 
@@ -136,6 +148,11 @@ public class Gun : MonoBehaviour
             return;
         }
 
+        ADSHandler();
+    }
+
+    void ADSHandler()
+    {
         if (canADS)
         {
             if (Input.GetButtonDown("Fire2"))
@@ -267,6 +284,7 @@ public class Gun : MonoBehaviour
         if (isPistol)
         {
             FindObjectOfType<AudioManager>().RandomizePitchAndPlay("pistolReload");
+            gunAnimator.SetBool("isEmpty", false);
         }
 
         if (isRifle)
@@ -285,7 +303,7 @@ public class Gun : MonoBehaviour
 
         yield return new WaitForSeconds(reloadTime - .25f);
 
-        gunAnimator.SetBool("Reloading", false);
+        gunAnimator.SetBool("Reloading", false);     
 
         if (isRifle)
         {         
