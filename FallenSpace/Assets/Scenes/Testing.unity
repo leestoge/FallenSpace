@@ -6672,7 +6672,7 @@ GameObject:
   - component: {fileID: 463233660}
   - component: {fileID: 463233659}
   m_Layer: 8
-  m_Name: Cube
+  m_Name: ShellTrajectory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6687,7 +6687,7 @@ Transform:
   m_GameObject: {fileID: 463233657}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.9986, y: 0.32018, z: 0.072038}
+  m_LocalScale: {x: 0.09947255, y: 0.034880407, z: 0.18814166}
   m_Children: []
   m_Father: {fileID: 1370513980}
   m_RootOrder: 0
@@ -18254,7 +18254,7 @@ BoxCollider:
   m_GameObject: {fileID: 1504994903}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.8, y: 3, z: 0.8}
   m_Center: {x: 0, y: 0, z: 0}
@@ -25905,7 +25905,7 @@ PrefabInstance:
     - target: {fileID: 96552344656316814, guid: c960f7c16e2f3ce4990abb69e0516e46,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c960f7c16e2f3ce4990abb69e0516e46, type: 3}

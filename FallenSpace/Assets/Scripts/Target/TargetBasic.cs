@@ -66,8 +66,7 @@ public class TargetBasic : MonoBehaviour
     {
         _animator.SetBool("Downed", true);
 
-        FindObjectOfType<AudioManager>().RandomizePitch("targetDown");
-        FindObjectOfType<AudioManager>().Play("targetDown");
+        FindObjectOfType<AudioManager>().RandomizePitchAndPlay("targetDown");
 
         foreach (Collider hitbox in hitboxes)
         {
