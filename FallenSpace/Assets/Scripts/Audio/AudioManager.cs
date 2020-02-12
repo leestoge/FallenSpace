@@ -69,4 +69,16 @@ public class AudioManager : MonoBehaviour
         }
         s.source.pitch = (UnityEngine.Random.Range(0.95f, 1.05f));
     }
+
+    public void RandomizePitchAndPlay(string name)
+    {
+        var s = Array.Find(sounds, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + name + "not found!");
+            return;
+        }
+        s.source.pitch = (UnityEngine.Random.Range(0.95f, 1.05f));
+        s.source.Play();
+    }
 }
