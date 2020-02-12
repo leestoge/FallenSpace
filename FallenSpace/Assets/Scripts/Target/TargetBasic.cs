@@ -62,7 +62,7 @@ public class TargetBasic : MonoBehaviour
         }
     }
 
-    void targetDowned() // points determined by hit location ^^^^^^^
+    void targetDowned() // points determined by hit location ^^^^^^^^
     {
         _animator.SetBool("Downed", true);
 
