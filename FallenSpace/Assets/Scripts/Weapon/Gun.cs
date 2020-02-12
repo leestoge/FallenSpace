@@ -174,8 +174,7 @@ public class Gun : MonoBehaviour
             if (Shell != null)
             {
                 GameObject shellIteration = Instantiate(Shell, shellPos.position, shellPos.rotation);
-               Destroy(shellIteration, 1.5f);
-                isPistol = true;
+                Destroy(shellIteration, 2f);
             }
         }
 
