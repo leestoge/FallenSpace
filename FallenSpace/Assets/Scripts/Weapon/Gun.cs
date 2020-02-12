@@ -30,11 +30,17 @@ public class Gun : MonoBehaviour
     public GameObject laserShot;
     public GameObject Smoke;
     public GameObject Steamer;
-    private ParticleSystem Steam;
     public Transform smokePos;
     public GameObject Shell;
     public Transform shellPos;
     public GameObject impact;
+
+    // Caching what would otherwise be local variables
+    private ParticleSystem Steam;
+    private GameObject shellIteration;
+    private GameObject smokeIteration;
+    private GameObject steamIteration;
+    private ParticleSystem[] smokers;
     // *************************
 
     private float nextTimeToFire = 0f;
@@ -88,20 +94,17 @@ public class Gun : MonoBehaviour
         // sounds
         if (isPistol)
         {
-            FindObjectOfType<AudioManager>().RandomizePitch("pistolSwitch");
-            FindObjectOfType<AudioManager>().Play("pistolSwitch");
+            FindObjectOfType<AudioManager>().RandomizePitchAndPlay("pistolSwitch");
         }
 
         if (isRifle)
         {
-            FindObjectOfType<AudioManager>().RandomizePitch("rifleSwitch");
-            FindObjectOfType<AudioManager>().Play("rifleSwitch");
+            FindObjectOfType<AudioManager>().RandomizePitchAndPlay("rifleSwitch");
         }
 
         if (isSniper)
         {
-            FindObjectOfType<AudioManager>().RandomizePitch("sniperSwitch");
-            FindObjectOfType<AudioManager>().Play("sniperSwitch");
+            FindObjectOfType<AudioManager>().RandomizePitchAndPlay("sniperSwitch");
         }
 
         // currentAmmo = maxAmmo; ammo reset when weapon switch
@@ -161,41 +164,20 @@ public class Gun : MonoBehaviour
 
         if (isPistol)
         {
-            FindObjectOfType<AudioManager>().RandomizePitch("pistolFire");
-            FindObjectOfType<AudioManager>().Play("pistolFire");
+            FindObjectOfType<AudioManager>().RandomizePitchAndPlay("pistolFire");
 
-            if (Muzzleflash != null && Smoke != null)
+            if (Muzzleflash != null && Smoke != null && Shell != null)
             {
                 Muzzleflash.Play();
-                GameObject smokeIteration = Instantiate(Smoke, Muzzleflash.transform.position, Muzzleflash.transform.rotation);
+                smokeIteration = Instantiate(Smoke, Muzzleflash.transform.position, Muzzleflash.transform.rotation);
+                shellIteration = Instantiate(Shell, shellPos.position, shellPos.rotation);
                 Destroy(smokeIteration, 1.8f);
+                Destroy(shellIteration, 5f);
             }
-
-            if (Shell != null)
-            {
-                GameObject shellIteration = Instantiate(Shell, shellPos.position, shellPos.rotation);
-                Destroy(shellIteration, 2f);
-            }
-        }
-
-        if (Smoke != null)
-        {
-            
         }
 
         if (isRifle)
         {
-            if (Muzzleflash != null && Smoke != null)
-            {
-                Muzzleflash.Play();
-                GameObject smokeIteration = Instantiate(Smoke, Muzzleflash.transform.position, Muzzleflash.transform.rotation);
-                Destroy(smokeIteration, 1.8f);
-            }
-            if (Steamer != null)
-            {
-                GameObject steamIteration = Instantiate(Steamer, smokePos.position, smokePos.rotation);
-                Destroy(steamIteration, 1.8f);
-            }
             if (rifleSound != null) // mg specific
             {
                 if (currentShotFrame == 0)
@@ -209,14 +191,24 @@ public class Gun : MonoBehaviour
                     currentShotFrame--;
                 }
             }
+            if (Muzzleflash != null && Smoke != null)
+            {
+                Muzzleflash.Play();
+                smokeIteration = Instantiate(Smoke, Muzzleflash.transform.position, Muzzleflash.transform.rotation);
+                Destroy(smokeIteration, 1.8f);
+            }
+            if (Steamer != null)
+            {
+                steamIteration = Instantiate(Steamer, smokePos.position, smokePos.rotation);
+                Destroy(steamIteration, 1.8f);
+            }
         }
 
         if (isSniper)
         {
-            FindObjectOfType<AudioManager>().RandomizePitch("sniperFire");
-            FindObjectOfType<AudioManager>().Play("sniperFire");
-            var smokers = smokePos.GetComponentsInChildren<ParticleSystem>();
+            FindObjectOfType<AudioManager>().RandomizePitchAndPlay("sniperFire");
 
+            smokers = smokePos.GetComponentsInChildren<ParticleSystem>();
             foreach (ParticleSystem p in smokers)
             {
                 p.Play();
@@ -253,7 +245,7 @@ public class Gun : MonoBehaviour
                 hit.rigidbody.AddForce(-hit.normal * impactForce);
             }
 
-            GameObject impactParticle = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
+            GameObject impactParticle = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal)); // handle impact
             Destroy(impactParticle, 0.40f);
         }
 
@@ -274,14 +266,12 @@ public class Gun : MonoBehaviour
 
         if (isPistol)
         {
-            FindObjectOfType<AudioManager>().RandomizePitch("pistolReload");
-            FindObjectOfType<AudioManager>().Play("pistolReload");
+            FindObjectOfType<AudioManager>().RandomizePitchAndPlay("pistolReload");
         }
 
         if (isRifle)
         {
-            FindObjectOfType<AudioManager>().RandomizePitch("rifleReload");
-            FindObjectOfType<AudioManager>().Play("rifleReload");
+            FindObjectOfType<AudioManager>().RandomizePitchAndPlay("rifleReload");
 
             Steam.Play();
 
@@ -290,8 +280,7 @@ public class Gun : MonoBehaviour
 
         if (isSniper)
         {
-            FindObjectOfType<AudioManager>().RandomizePitch("sniperReload");
-            FindObjectOfType<AudioManager>().Play("sniperReload");
+            FindObjectOfType<AudioManager>().RandomizePitchAndPlay("sniperReload");
         }
 
         yield return new WaitForSeconds(reloadTime - .25f);
@@ -321,5 +310,10 @@ public class Gun : MonoBehaviour
     {
         fpsCam.fieldOfView = originalFOV;
         // crosshairElement.SetActive(true);
+    }
+
+    public void DestroyShellCasing()
+    {
+        Destroy(shellIteration, 1f);
     }
 }
