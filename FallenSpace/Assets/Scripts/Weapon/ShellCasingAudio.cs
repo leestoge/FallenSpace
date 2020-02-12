@@ -13,11 +13,11 @@ public class ShellCasingAudio : MonoBehaviour
 
     void OnParticleCollision(GameObject other)
     {
-        if (audioPlayed == false)
+        if (audioPlayed == false && !other.gameObject.CompareTag("Weapon") && !other.gameObject.CompareTag("Player"))
         {
-            FindObjectOfType<AudioManager>().RandomizePitch("shellCasing");
-            FindObjectOfType<AudioManager>().Play("shellCasing");
+            FindObjectOfType<AudioManager>().RandomizePitchAndPlay("shellCasing");
             audioPlayed = true;
+            FindObjectOfType<Gun>().DestroyShellCasing();
         }      
     } 
 }
