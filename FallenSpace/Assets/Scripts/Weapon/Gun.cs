@@ -30,6 +30,7 @@ public class Gun : MonoBehaviour
     public GameObject laserShot;
     public GameObject Smoke;
     public GameObject Steamer;
+    public GameObject Shockwave;
     public Transform smokePos;
     public GameObject Shell;
     public Transform shellPos;
@@ -41,6 +42,7 @@ public class Gun : MonoBehaviour
     private GameObject smokeIteration;
     private GameObject steamIteration;
     private ParticleSystem[] smokers;
+    private GameObject shockwaveIteration;
     // *************************
 
     private float nextTimeToFire = 0f;
@@ -125,6 +127,12 @@ public class Gun : MonoBehaviour
 
             if (isPistol)
             {
+                gunAnimator.SetBool("isEmpty", true);
+            }
+
+            if (isRifle)
+            {
+                mat.SetColor("_EmissionColor", changeColor);
                 gunAnimator.SetBool("isEmpty", true);
             }
 
@@ -230,6 +238,15 @@ public class Gun : MonoBehaviour
             {
                 p.Play();
             }
+
+            if (Muzzleflash != null && Smoke != null && Shockwave !=null)
+            {
+                Muzzleflash.Play();
+                shockwaveIteration = Instantiate(Shockwave, Muzzleflash.transform.position, Muzzleflash.transform.rotation);
+                smokeIteration = Instantiate(Smoke, Muzzleflash.transform.position, Muzzleflash.transform.rotation);
+                Destroy(smokeIteration, 1.8f);
+                Destroy(shockwaveIteration, 1.8f);
+            }
         }
 
         currentAmmo--;
@@ -292,7 +309,7 @@ public class Gun : MonoBehaviour
             FindObjectOfType<AudioManager>().RandomizePitchAndPlay("rifleReload");
 
             Steam.Play();
-
+            gunAnimator.SetBool("isEmpty", false);
             mat.SetColor("_EmissionColor", changeColor);
         }
 
