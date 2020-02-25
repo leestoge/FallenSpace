@@ -72,6 +72,8 @@ public class Gun : MonoBehaviour
     //
     public GameObject mgSound;
     public GameObject mgEmptySound;
+    public CamRecoil camRecoil;
+    public WepRecoil wepRecoil;
     private int framesBeforeNextShot; // to delay the sound to fix lag increment this
     private int currentShotFrame;
 
@@ -194,8 +196,16 @@ public class Gun : MonoBehaviour
         {
             if (Input.GetButtonDown("Fire2"))
             {
+                camRecoil.isAiming = !camRecoil.isAiming;
+
+                if (isRifle)
+                {
+                    wepRecoil.isAiming = !wepRecoil.isAiming;
+                }
+
                 isAiming = !isAiming;
                 gunAnimator.SetBool("isAim", isAiming);
+
             }
         }
     }
@@ -206,6 +216,7 @@ public class Gun : MonoBehaviour
         gunModel.DOPunchPosition(new Vector3(0, 0, -punchStrenght), punchDuration, punchVibrato, punchElasticity);
 
         gunAnimator.SetTrigger("Fire");
+        camRecoil.Fire();
 
         if (isPistol)
         {
@@ -227,6 +238,8 @@ public class Gun : MonoBehaviour
             {
                 if (currentShotFrame == 0)
                 {
+                    
+                    wepRecoil.Fire();
                     MGGunshot = Instantiate(mgSound, transform.position, transform.rotation);
                     MGGunshot.transform.parent = transform;
                     currentShotFrame = framesBeforeNextShot;
