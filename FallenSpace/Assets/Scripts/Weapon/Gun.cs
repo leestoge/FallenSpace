@@ -4,26 +4,36 @@ using System.Collections;
 
 public class Gun : MonoBehaviour
 {
+    [Header("Global variables")]
+    [Space]
     public float damage;
     public float range = 100f;
     public float fireRate = 15f;
     public float impactForce = 30f;
-
-    public int maxAmmo = 6;
-    private int currentAmmo;
     public float reloadTime = 1f;
+    public int maxAmmo = 6;
+
+    private int currentAmmo; 
     private bool isReloading = false;
+    private float nextTimeToFire = 0f;
+    private bool isAiming = false;
 
     public Camera fpsCam;
     public Animator gunAnimator;
     public Transform gunModel;
 
     [Space]
+    [Header("DOTWEEN variables")]
+
     public float punchStrenght = .2f;
     public int punchVibrato = 5;
     public float punchDuration = .3f;
     [Range(0, 1)]
     public float punchElasticity = .5f;
+
+
+    [Space]
+    [Header("Particle related variables")]
 
     // particles ***************
     public ParticleSystem Muzzleflash;
@@ -37,45 +47,56 @@ public class Gun : MonoBehaviour
     public GameObject impact;
 
     // Caching what would otherwise be local variables
+    #region Caching
     private ParticleSystem Steam;
     private GameObject shellIteration;
     private GameObject smokeIteration;
     private GameObject steamIteration;
     private ParticleSystem[] smokers;
     private GameObject shockwaveIteration;
+    private GameObject MGGunshotEmpty;
+    private GameObject MGGunshot;
+    private GameObject laser;
     // *************************
+    #endregion
 
-    private float nextTimeToFire = 0f;
 
-    //pistol ADS
-    private bool isAiming = false;
-    public GameObject crosshairElement;
 
-    public float adsFOV = 80f;
-    private float originalFOV = 90f;
+
+
+    [Space]
+    [Header("MG related variables")]
 
     // *************************
     //mg specific
     //
+    public GameObject mgSound;
+    public GameObject mgEmptySound;
     private int framesBeforeNextShot; // to delay the sound to fix lag increment this
     private int currentShotFrame;
-    public GameObject rifleSound;
 
+    // Energy Cycler colour
     private Material mat;
-
     private Color origColor;
     private Color changeColor;
     //
     // *************************
+
+    [Space]
+    [Header("Weapon type differentiation")]
 
     public bool isPistol;
     public bool isRifle;
     public bool isSniper;
     public bool canADS;
 
+    // Weapon out of ammo audio bool
+    private bool isOutAudioPlayed;
+
     void Awake()
     {
         currentAmmo = maxAmmo;
+        isOutAudioPlayed = false;
 
         if (isRifle)
         {
@@ -90,7 +111,7 @@ public class Gun : MonoBehaviour
     {
         isReloading = false;
         isAiming = false;
-        fpsCam.fieldOfView = originalFOV;
+
         gunAnimator.SetBool("Reloading", false);
 
         // sounds
@@ -120,14 +141,15 @@ public class Gun : MonoBehaviour
             return;
         }
 
-        if (currentAmmo <= 0) // require reload
+        if (currentAmmo <= 0) // need to reload
         {
             //StartCoroutine(Reload()); // automatic reload
             ADSHandler();
+            AmmoOut();
 
             if (isPistol)
             {
-                gunAnimator.SetBool("isEmpty", true);
+                gunAnimator.SetBool("isEmpty", true);                
             }
 
             if (isRifle)
@@ -140,6 +162,13 @@ public class Gun : MonoBehaviour
             {
                 StartCoroutine(Reload());
                 return;
+            }
+
+            // if fire input play empty sound
+            if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire)
+            {
+                nextTimeToFire = Time.time + 1f / fireRate;
+                ShootEmpty();
             }
             return;
         }
@@ -167,15 +196,6 @@ public class Gun : MonoBehaviour
             {
                 isAiming = !isAiming;
                 gunAnimator.SetBool("isAim", isAiming);
-
-                if (isAiming)
-                {
-                    StartCoroutine(OnADS());
-                }
-                else
-                {
-                    OnUnADS();
-                }
             }
         }
     }
@@ -203,12 +223,12 @@ public class Gun : MonoBehaviour
 
         if (isRifle)
         {
-            if (rifleSound != null) // mg specific
+            if (mgSound != null) // mg specific
             {
                 if (currentShotFrame == 0)
                 {
-                    GameObject gunShot = Instantiate(rifleSound, transform.position, transform.rotation);
-                    gunShot.transform.parent = transform;
+                    MGGunshot = Instantiate(mgSound, transform.position, transform.rotation);
+                    MGGunshot.transform.parent = transform;
                     currentShotFrame = framesBeforeNextShot;
                 }
                 else
@@ -285,10 +305,45 @@ public class Gun : MonoBehaviour
 
         if (laserShot != null) // laser specific
         {
-            GameObject laser = Instantiate(laserShot, transform.position, transform.rotation);
+            laser = Instantiate(laserShot, transform.position, transform.rotation);
             laser.GetComponent<LaserBehaviour>().setTarget(hit.point);
             Destroy(laser, 2f);
         }
+    }
+
+    void ShootEmpty()
+    {
+        //gunModel.DOComplete();
+        //gunModel.DOPunchPosition(new Vector3(0, 0, -punchStrenght), punchDuration, punchVibrato, punchElasticity);
+
+        // gunAnimator.SetTrigger("Fire");
+
+        if (isPistol)
+        {
+            FindObjectOfType<AudioManager>().RandomizePitchAndPlay("pistolDryFire");          
+        }
+
+        if (isRifle)
+        {
+            if (mgSound != null) // mg specific
+            {
+                if (currentShotFrame == 0)
+                {
+                    MGGunshotEmpty = Instantiate(mgEmptySound, transform.position, transform.rotation);
+                    MGGunshotEmpty.transform.parent = transform;
+                    currentShotFrame = framesBeforeNextShot;
+                }
+                else
+                {
+                    currentShotFrame--;
+                }
+            }           
+        }
+
+        if (isSniper)
+        {
+            FindObjectOfType<AudioManager>().RandomizePitchAndPlay("sniperDryFire");
+        }      
     }
 
     IEnumerator Reload()
@@ -331,24 +386,38 @@ public class Gun : MonoBehaviour
 
         currentAmmo = maxAmmo;
         isReloading = false;
-    }
+        isOutAudioPlayed = false;
 
-    IEnumerator OnADS()
-    {
-        yield return new WaitForSeconds(.15f);
-
-        fpsCam.fieldOfView = adsFOV;
-        // crosshairElement.SetActive(false);
-    }
-
-    void OnUnADS()
-    {
-        fpsCam.fieldOfView = originalFOV;
-        // crosshairElement.SetActive(true);
+        if (isRifle)
+        {
+            FindObjectOfType<AudioManager>().RandomizePitchAndPlay("rifleReady");
+        }
     }
 
     public void DestroyShellCasing()
     {
         Destroy(shellIteration, 1f);
+    }
+
+    void AmmoOut()
+    {
+
+        if (isPistol && isOutAudioPlayed == false)
+        {
+            FindObjectOfType<AudioManager>().RandomizePitchAndPlay("pistolOut");
+            isOutAudioPlayed = true;
+        }
+
+        if (isRifle && isOutAudioPlayed == false)
+        {
+            FindObjectOfType<AudioManager>().RandomizePitchAndPlay("rifleOut");
+            isOutAudioPlayed = true;
+        }
+
+        if (isSniper && isOutAudioPlayed == false)
+        {
+            FindObjectOfType<AudioManager>().RandomizePitchAndPlay("sniperOut");
+            isOutAudioPlayed = true;
+        }      
     }
 }
