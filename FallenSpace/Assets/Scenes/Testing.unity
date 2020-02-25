@@ -11278,8 +11278,8 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: pistolReload
-    clip: {fileID: 8300000, guid: 3984f5e1cff12404a90fae00f14d05c7, type: 3}
-    volume: 1
+    clip: {fileID: 8300000, guid: 2493f5590e1e0714ca0e3052f006fe57, type: 3}
+    volume: 0.9
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -11327,13 +11327,55 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: targetDown
     clip: {fileID: 8300000, guid: d0dec36cd8a2b014e94855c0c4f72761, type: 3}
-    volume: 0.5
+    volume: 0.65
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: shellCasing
     clip: {fileID: 8300000, guid: 93acdd6754f71654f8863302cf4abb72, type: 3}
     volume: 0.1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: pistolOut
+    clip: {fileID: 8300000, guid: b5da6caa9e464a54cba10aeb7dcee9e5, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: rifleOut
+    clip: {fileID: 8300000, guid: afd3df7fd2f842d40b5aef6b5144a394, type: 3}
+    volume: 1
+    pitch: 0.8
+    loop: 0
+    source: {fileID: 0}
+  - name: pistolDryFire
+    clip: {fileID: 8300000, guid: a15d7175254bf404eb5b3426d2ae9de3, type: 3}
+    volume: 0.25
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: sniperOut
+    clip: {fileID: 8300000, guid: afd3df7fd2f842d40b5aef6b5144a394, type: 3}
+    volume: 1
+    pitch: 0.2
+    loop: 0
+    source: {fileID: 0}
+  - name: sniperDryFire
+    clip: {fileID: 8300000, guid: cfdefbf2cc2e58b48a509271cf9999e4, type: 3}
+    volume: 0.9
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: FREE SLOT BOYS WOO
+    clip: {fileID: 8300000, guid: 5b7e6255d25612f4083d1ffad9233fec, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: rifleReady
+    clip: {fileID: 8300000, guid: 1a4cce47d8b6ca046b3178766f0855b5, type: 3}
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -32309,12 +32351,6 @@ Transform:
   m_Father: {fileID: 1017878471}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1780470021 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 96552345532889566, guid: c960f7c16e2f3ce4990abb69e0516e46,
-    type: 3}
-  m_PrefabInstance: {fileID: 96552345807812118}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1781113965
 GameObject:
   m_ObjectHideFlags: 0
@@ -62586,7 +62622,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: c9ea56e64bb149744b5fc333d835c4bb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 778a48b78143a884ca06fd8e07d38c3b, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -72577,8 +72613,8 @@ MonoBehaviour:
   range: 15
   fireRate: 2.2
   impactForce: 100
-  maxAmmo: 6
   reloadTime: 1.5
+  maxAmmo: 6
   fpsCam: {fileID: 1504404599}
   gunAnimator: {fileID: 2537121684085140173}
   gunModel: {fileID: 625655579}
@@ -72595,9 +72631,8 @@ MonoBehaviour:
   Shell: {fileID: 6275264316038693461, guid: e40258b5c7654a043be8225b6678f05a, type: 3}
   shellPos: {fileID: 1370513980}
   impact: {fileID: 8009102232227286795, guid: a29115b7f2b09034abf397563b4ed02a, type: 3}
-  crosshairElement: {fileID: 1780470021}
-  adsFOV: 80
-  rifleSound: {fileID: 0}
+  mgSound: {fileID: 0}
+  mgEmptySound: {fileID: 0}
   isPistol: 1
   isRifle: 0
   isSniper: 0
@@ -76254,8 +76289,8 @@ MonoBehaviour:
   range: 100
   fireRate: 0.5
   impactForce: 500
-  maxAmmo: 3
   reloadTime: 2
+  maxAmmo: 3
   fpsCam: {fileID: 1504404599}
   gunAnimator: {fileID: 238464260}
   gunModel: {fileID: 1831002623}
@@ -76273,9 +76308,8 @@ MonoBehaviour:
   Shell: {fileID: 0}
   shellPos: {fileID: 0}
   impact: {fileID: 8009102232227286795, guid: a29115b7f2b09034abf397563b4ed02a, type: 3}
-  crosshairElement: {fileID: 0}
-  adsFOV: 80
-  rifleSound: {fileID: 0}
+  mgSound: {fileID: 0}
+  mgEmptySound: {fileID: 0}
   isPistol: 0
   isRifle: 0
   isSniper: 1
@@ -76292,12 +76326,12 @@ GameObject:
   - component: {fileID: 8296172667974560851}
   - component: {fileID: 8296172667974560852}
   m_Layer: 8
-  m_Name: Rifle
+  m_Name: MG
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &8296172667974560851
 Animator:
   serializedVersion: 3
@@ -76333,8 +76367,8 @@ MonoBehaviour:
   range: 50
   fireRate: 10
   impactForce: 30
-  maxAmmo: 30
   reloadTime: 3
+  maxAmmo: 30
   fpsCam: {fileID: 1504404599}
   gunAnimator: {fileID: 8296172667974560851}
   gunModel: {fileID: 1093246971}
@@ -76351,9 +76385,9 @@ MonoBehaviour:
   Shell: {fileID: 0}
   shellPos: {fileID: 0}
   impact: {fileID: 8009102232227286795, guid: a29115b7f2b09034abf397563b4ed02a, type: 3}
-  crosshairElement: {fileID: 0}
-  adsFOV: 80
-  rifleSound: {fileID: 1780029824811016, guid: 0e06c21c1ee70654d9b1a06bacb01393, type: 3}
+  mgSound: {fileID: 1780029824811016, guid: 0e06c21c1ee70654d9b1a06bacb01393, type: 3}
+  mgEmptySound: {fileID: 1780029824811016, guid: 6f88d7dd6639ab74284109956a563871,
+    type: 3}
   isPistol: 0
   isRifle: 1
   isSniper: 0
