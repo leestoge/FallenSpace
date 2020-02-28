@@ -24,7 +24,6 @@ public class Gun : MonoBehaviour
 
     [Space]
     [Header("DOTWEEN variables")]
-
     public float punchStrenght = .2f;
     public int punchVibrato = 5;
     public float punchDuration = .3f;
@@ -37,7 +36,6 @@ public class Gun : MonoBehaviour
 
     // particles ***************
     public ParticleSystem Muzzleflash;
-    public GameObject laserShot;
     public GameObject Smoke;
     public GameObject Steamer;
     public GameObject Shockwave;
@@ -49,14 +47,8 @@ public class Gun : MonoBehaviour
     // Caching what would otherwise be local variables
     #region Caching
     private ParticleSystem Steam;
-    private GameObject shellIteration;
-    private GameObject smokeIteration;
-    private GameObject steamIteration;
+    private GameObject cachedGameObject;
     private ParticleSystem[] smokers;
-    private GameObject shockwaveIteration;
-    private GameObject MGGunshotEmpty;
-    private GameObject MGGunshot;
-    private GameObject laser;
     // *************************
     #endregion
 
@@ -225,10 +217,10 @@ public class Gun : MonoBehaviour
             if (Muzzleflash != null && Smoke != null && Shell != null)
             {
                 Muzzleflash.Play();
-                smokeIteration = Instantiate(Smoke, Muzzleflash.transform.position, Muzzleflash.transform.rotation);
-                shellIteration = Instantiate(Shell, shellPos.position, shellPos.rotation);
-                Destroy(smokeIteration, 1.8f);
-                Destroy(shellIteration, 5f);
+                cachedGameObject = Instantiate(Smoke, Muzzleflash.transform.position, Muzzleflash.transform.rotation);
+                cachedGameObject = Instantiate(Shell, shellPos.position, shellPos.rotation);
+                Destroy(cachedGameObject, 1.8f);
+                Destroy(cachedGameObject, 5f);
             }
         }
 
@@ -240,8 +232,8 @@ public class Gun : MonoBehaviour
                 {
                     
                     wepRecoil.Fire();
-                    MGGunshot = Instantiate(mgSound, transform.position, transform.rotation);
-                    MGGunshot.transform.parent = transform;
+                    cachedGameObject = Instantiate(mgSound, transform.position, transform.rotation);
+                    cachedGameObject.transform.parent = transform;
                     currentShotFrame = framesBeforeNextShot;
                 }
                 else
@@ -252,13 +244,13 @@ public class Gun : MonoBehaviour
             if (Muzzleflash != null && Smoke != null)
             {
                 Muzzleflash.Play();
-                smokeIteration = Instantiate(Smoke, Muzzleflash.transform.position, Muzzleflash.transform.rotation);
-                Destroy(smokeIteration, 1.8f);
+                cachedGameObject = Instantiate(Smoke, Muzzleflash.transform.position, Muzzleflash.transform.rotation);
+                Destroy(cachedGameObject, 1.8f);
             }
             if (Steamer != null)
             {
-                steamIteration = Instantiate(Steamer, smokePos.position, smokePos.rotation);
-                Destroy(steamIteration, 1.8f);
+                cachedGameObject = Instantiate(Steamer, smokePos.position, smokePos.rotation);
+                Destroy(cachedGameObject, 1.8f);
             }
         }
 
@@ -275,10 +267,10 @@ public class Gun : MonoBehaviour
             if (Muzzleflash != null && Smoke != null && Shockwave !=null)
             {
                 Muzzleflash.Play();
-                shockwaveIteration = Instantiate(Shockwave, Muzzleflash.transform.position, Muzzleflash.transform.rotation);
-                smokeIteration = Instantiate(Smoke, Muzzleflash.transform.position, Muzzleflash.transform.rotation);
-                Destroy(smokeIteration, 1.8f);
-                Destroy(shockwaveIteration, 1.8f);
+                cachedGameObject = Instantiate(Shockwave, Muzzleflash.transform.position, Muzzleflash.transform.rotation);
+                cachedGameObject = Instantiate(Smoke, Muzzleflash.transform.position, Muzzleflash.transform.rotation);
+                Destroy(cachedGameObject, 1.8f);
+                Destroy(cachedGameObject, 1.8f);
             }
         }
 
@@ -312,25 +304,13 @@ public class Gun : MonoBehaviour
                 hit.rigidbody.AddForce(-hit.normal * impactForce);
             }
 
-            GameObject impactParticle = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal)); // handle impact
-            Destroy(impactParticle, 0.40f);
-        }
-
-        if (laserShot != null) // laser specific
-        {
-            laser = Instantiate(laserShot, transform.position, transform.rotation);
-            laser.GetComponent<LaserBehaviour>().setTarget(hit.point);
-            Destroy(laser, 2f);
+            // handle particle impact
+            FindObjectOfType<ImpactParticleHandler>().CheckImpactLocation(hit);
         }
     }
 
     void ShootEmpty()
     {
-        //gunModel.DOComplete();
-        //gunModel.DOPunchPosition(new Vector3(0, 0, -punchStrenght), punchDuration, punchVibrato, punchElasticity);
-
-        // gunAnimator.SetTrigger("Fire");
-
         if (isPistol)
         {
             FindObjectOfType<AudioManager>().RandomizePitchAndPlay("pistolDryFire");          
@@ -342,8 +322,8 @@ public class Gun : MonoBehaviour
             {
                 if (currentShotFrame == 0)
                 {
-                    MGGunshotEmpty = Instantiate(mgEmptySound, transform.position, transform.rotation);
-                    MGGunshotEmpty.transform.parent = transform;
+                   cachedGameObject = Instantiate(mgEmptySound, transform.position, transform.rotation);
+                   cachedGameObject.transform.parent = transform;
                     currentShotFrame = framesBeforeNextShot;
                 }
                 else
@@ -409,7 +389,7 @@ public class Gun : MonoBehaviour
 
     public void DestroyShellCasing()
     {
-        Destroy(shellIteration, 1f);
+        Destroy(cachedGameObject, 1f);
     }
 
     void AmmoOut()
