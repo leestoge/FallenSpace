@@ -22,7 +22,7 @@ public class ImpactParticleHandler : MonoBehaviour
         rScale = Random.Range(0.5f, 1.0f);
     }
 
-    public void CheckImpactLocation(RaycastHit location)
+    public void HandleImpact(RaycastHit location)
     {
         if (location.collider.CompareTag("Concrete"))
         {
