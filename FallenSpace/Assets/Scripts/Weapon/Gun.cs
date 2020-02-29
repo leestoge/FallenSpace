@@ -11,9 +11,9 @@ public class Gun : MonoBehaviour
     public float fireRate = 15f;
     public float impactForce = 30f;
     public float reloadTime = 1f;
-    public int maxAmmo = 6;
+    public int maxAmmo;
 
-    private int currentAmmo; 
+    [HideInInspector] public int currentAmmo; 
     private bool isReloading = false;
     private float nextTimeToFire = 0f;
     private bool isAiming = false;
@@ -279,8 +279,11 @@ public class Gun : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
-            Debug.Log(hit.transform.name);
+            Debug.Log("'" + transform.name + "' has hit '" + hit.transform.name+ "'");
 
+            // Handle target hit
+
+            // TargetImpactHandler.HandleShot();
             TargetBasic targetBasic = hit.transform.GetComponentInParent<TargetBasic>();
 
             if (targetBasic != null)
@@ -305,7 +308,7 @@ public class Gun : MonoBehaviour
             }
 
             // handle particle impact
-            FindObjectOfType<ImpactParticleHandler>().CheckImpactLocation(hit);
+            FindObjectOfType<ImpactParticleHandler>().HandleImpact(hit);
         }
     }
 
@@ -342,7 +345,7 @@ public class Gun : MonoBehaviour
     IEnumerator Reload()
     {
         isReloading = true;
-        Debug.Log("Reloading...");
+        Debug.Log("'" + transform.name + "' is reloading...");
 
         gunAnimator.SetBool("Reloading", true);
 
