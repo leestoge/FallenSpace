@@ -1,11 +1,20 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class TargetBasic : MonoBehaviour
 {
     public float globalHealth = 100f;
+   
     private Animator _animator;
     private Collider[] hitboxes;
     private PlayerPoints points;
+
+    [Header("Shooting range")]
+    // Shooting range training mode
+    public bool isTrainingMode;
+    public float resetTime;
+
+    private float baseHealth = 100f;
 
     void Awake()
     {
@@ -62,7 +71,7 @@ public class TargetBasic : MonoBehaviour
         }
     }
 
-    void targetDowned() // points determined by hit location ^^^^^^^^
+    void targetDowned()
     {
         _animator.SetBool("Downed", true);
 
@@ -74,5 +83,31 @@ public class TargetBasic : MonoBehaviour
         }
 
         points.AwardElimination();
+
+        if (isTrainingMode)
+        {
+            StartCoroutine(ResetTarget());
+        }
+    }
+
+    void targetUp()
+    {
+        _animator.SetBool("Downed", false); // get target up
+
+        // some sort of audio queue
+
+        foreach (Collider hitbox in hitboxes)
+        {
+            hitbox.enabled = true; // re-enable hitboxes
+        }
+
+        globalHealth = baseHealth;
+    }
+
+    IEnumerator ResetTarget()
+    {
+        yield return new WaitForSeconds(resetTime);
+
+        targetUp();
     }
 }
