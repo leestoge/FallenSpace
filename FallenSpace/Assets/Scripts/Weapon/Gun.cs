@@ -52,10 +52,6 @@ public class Gun : MonoBehaviour
     // *************************
     #endregion
 
-
-
-
-
     [Space]
     [Header("MG related variables")]
 
@@ -124,7 +120,9 @@ public class Gun : MonoBehaviour
             FindObjectOfType<AudioManager>().RandomizePitchAndPlay("sniperSwitch");
         }
 
-        // currentAmmo = maxAmmo; ammo reset when weapon switch
+        // ammo reset when weapon switch
+        // currentAmmo = maxAmmo; 
+        //
     }
 
     // Update is called once per frame
@@ -137,19 +135,21 @@ public class Gun : MonoBehaviour
 
         if (currentAmmo <= 0) // need to reload
         {
-            //StartCoroutine(Reload()); // automatic reload
+            // automatic reload
+            //StartCoroutine(Reload()); 
+            //
+
             ADSHandler();
             AmmoOut();
 
-            if (isPistol)
+            if (isPistol || isRifle)
             {
                 gunAnimator.SetBool("isEmpty", true);                
             }
 
             if (isRifle)
             {
-                mat.SetColor("_EmissionColor", changeColor);
-                gunAnimator.SetBool("isEmpty", true);
+                mat.SetColor("_EmissionColor", changeColor);             
             }
 
             if (Input.GetKeyDown(KeyCode.R))
@@ -281,26 +281,8 @@ public class Gun : MonoBehaviour
         {
             Debug.Log("'" + transform.name + "' has hit '" + hit.transform.name+ "'");
 
-            // Handle target hit
-
-            // TargetImpactHandler.HandleShot();
-            TargetBasic targetBasic = hit.transform.GetComponentInParent<TargetBasic>();
-
-            if (targetBasic != null)
-            {
-                if (hit.transform.name.Contains("HeadHitbox"))
-                {
-                    targetBasic.TakeDamageHead(damage);
-                }
-                else if (hit.transform.name.Contains("BodyHitbox"))
-                {
-                    targetBasic.TakeDamageBody(damage);
-                }
-                else if (hit.transform.name.StartsWith("_Minor"))
-                {
-                    targetBasic.TakeDamageArms(damage);
-                }
-            }
+            // Handle target impact
+            FindObjectOfType<TargetImpactHandler>().HandleImpact(hit, damage);
 
             if (hit.rigidbody != null)
             {
