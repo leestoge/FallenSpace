@@ -4884,7 +4884,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a29767879f97b364393df3a772628180, type: 2}
+  - {fileID: 2100000, guid: d771645f9ac10d241b18277409d02a55, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4916,6 +4916,8 @@ GameObject:
   - component: {fileID: 5344132121542692020}
   - component: {fileID: 77947959360269167}
   - component: {fileID: 1679048546297522352}
+  - component: {fileID: 7711261335194479218}
+  - component: {fileID: 5393400704819746856}
   m_Layer: 0
   m_Name: HoloHit
   m_TagString: Untagged
@@ -9502,6 +9504,123 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyAfter: 7
+--- !u!114 &7711261335194479218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5419375644196960665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c8d9b0101af27544b3167ec6547c04f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playAfter: 0.15
+  isMetal: 0
+  metalImpactSounds: []
+  isConcrete: 0
+  concreteImpactSounds: []
+  isWood: 0
+  woodImpactSounds: []
+  isEnemy: 1
+  enemyImpact: {fileID: 8300000, guid: 5fd34f4520aa12f4ea21b0464c128252, type: 3}
+--- !u!82 &5393400704819746856
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5419375644196960665}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7272094325382290787
 GameObject:
   m_ObjectHideFlags: 0
@@ -13292,20 +13411,20 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 0.3727279, b: 0, a: 1}
-        key1: {r: 0, g: 0.69138074, b: 1, a: 1}
-        key2: {r: 0.3001213, g: 0.1372549, b: 1, a: 1}
-        key3: {r: 0.69379246, g: 0.037091374, b: 0.9641668, a: 0}
-        key4: {r: 0.89230114, g: 0.06941971, b: 0.9811321, a: 0}
+        key0: {r: 0, g: 0.9683142, b: 1, a: 1}
+        key1: {r: 0.3001213, g: 0.1372549, b: 1, a: 1}
+        key2: {r: 0.69379246, g: 0.037091374, b: 0.9641668, a: 1}
+        key3: {r: 0.89230114, g: 0.06941971, b: 0.9811321, a: 0}
+        key4: {r: 1, g: 1, b: 1, a: 0}
         key5: {r: 1, g: 1, b: 1, a: 0}
         key6: {r: 1, g: 1, b: 1, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
-        ctime1: 8674
-        ctime2: 22552
-        ctime3: 35273
-        ctime4: 46838
-        ctime5: 61295
+        ctime1: 12529
+        ctime2: 21395
+        ctime3: 34695
+        ctime4: 47995
+        ctime5: 65535
         ctime6: 65535
         ctime7: 0
         atime0: 0
@@ -13317,7 +13436,7 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_NumColorKeys: 7
+        m_NumColorKeys: 6
         m_NumAlphaKeys: 3
       minGradient:
         serializedVersion: 2

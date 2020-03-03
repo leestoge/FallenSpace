@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 406288496403890907}
   - component: {fileID: 406288496403872635}
   - component: {fileID: 1470522288394764646}
+  - component: {fileID: 3002123952503817376}
+  - component: {fileID: 3117083739302677943}
   m_Layer: 0
   m_Name: MetalHit
   m_TagString: Untagged
@@ -4697,6 +4699,128 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyAfter: 7
+--- !u!114 &3002123952503817376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406288496418151353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c8d9b0101af27544b3167ec6547c04f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playAfter: 0.1
+  isMetal: 1
+  metalImpactSounds:
+  - {fileID: 8300000, guid: 002e29581be8eae47aec48f2e1283cbd, type: 3}
+  - {fileID: 8300000, guid: dbe20b1d13d69fa43a213ccfe1840d0e, type: 3}
+  - {fileID: 8300000, guid: 5a74e6585294c8143b37a83db272306b, type: 3}
+  - {fileID: 8300000, guid: 057fef8b4333bde40bb58d12c8bcd79d, type: 3}
+  - {fileID: 8300000, guid: 96f3fb1fab4733340ba26c02581a9d8c, type: 3}
+  isConcrete: 0
+  concreteImpactSounds: []
+  isWood: 0
+  woodImpactSounds: []
+  isEnemy: 0
+  enemyImpactSounds: []
+--- !u!82 &3117083739302677943
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406288496418151353}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
+  m_Pitch: 0.8
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &406288496418151355
 GameObject:
   m_ObjectHideFlags: 0
@@ -4714,7 +4838,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &406288496418047899
 Transform:
   m_ObjectHideFlags: 0

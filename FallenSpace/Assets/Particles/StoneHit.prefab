@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &476516182161457909
 Transform:
   m_ObjectHideFlags: 0
@@ -4916,6 +4916,8 @@ GameObject:
   - component: {fileID: 5344132121542692020}
   - component: {fileID: 77947959360269167}
   - component: {fileID: 1679048546297522352}
+  - component: {fileID: 6776633945197064003}
+  - component: {fileID: 8895213060192395453}
   m_Layer: 0
   m_Name: StoneHit
   m_TagString: Untagged
@@ -9502,6 +9504,129 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyAfter: 7
+--- !u!114 &6776633945197064003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5419375644196960665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c8d9b0101af27544b3167ec6547c04f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playAfter: 0.1
+  isMetal: 0
+  metalImpactSounds: []
+  isConcrete: 1
+  concreteImpactSounds:
+  - {fileID: 8300000, guid: d03449a5706b87143aa9f9f8c524f16f, type: 3}
+  - {fileID: 8300000, guid: befe5d4ac629a1d408fcfc6965897d8e, type: 3}
+  - {fileID: 8300000, guid: 2db41d4171b667a4b9f619cc30a2d676, type: 3}
+  - {fileID: 8300000, guid: 65ddd6dc3dd9be84a9860ec5d8f88ec5, type: 3}
+  - {fileID: 8300000, guid: 06e02e80f9124c24b9c3cfa14fe4aeb7, type: 3}
+  - {fileID: 8300000, guid: 2b3b74981ca36fa4792430151e14fb3a, type: 3}
+  isWood: 0
+  woodImpactSounds: []
+  isEnemy: 0
+  enemyImpact: {fileID: 0}
+--- !u!82 &8895213060192395453
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5419375644196960665}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
+  m_Pitch: 0.8
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7272094325382290787
 GameObject:
   m_ObjectHideFlags: 0
