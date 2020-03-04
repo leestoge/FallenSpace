@@ -16,8 +16,16 @@ public class TargetBasic : MonoBehaviour
 
     private float baseHealth = 100f;
 
+    [Header("Sounds")]
+    public AudioClip upSound;
+    public AudioClip downSound;
+    public AudioClip awardSound;
+
+    private AudioSource _aSource;
+
     void Awake()
     {
+        _aSource = GetComponent<AudioSource>();
         _animator = GetComponent<Animator>();
         hitboxes = GetComponentsInChildren<BoxCollider>();
         points = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerPoints>(); // find player
@@ -74,14 +82,16 @@ public class TargetBasic : MonoBehaviour
     void targetDowned()
     {
         _animator.SetBool("Downed", true);
-
-        FindObjectOfType<AudioManager>().RandomizePitchAndPlay("targetDown");
+        _aSource.clip = downSound;
+        _aSource.PlayOneShot(_aSource.clip);
 
         foreach (Collider hitbox in hitboxes)
         {
             hitbox.enabled = false;
         }
 
+        _aSource.clip = awardSound;
+        _aSource.PlayOneShot(_aSource.clip);
         points.AwardElimination();
 
         if (isTrainingMode)
@@ -93,6 +103,8 @@ public class TargetBasic : MonoBehaviour
     void targetUp()
     {
         _animator.SetBool("Downed", false); // get target up
+        _aSource.clip = upSound;
+        _aSource.PlayOneShot(_aSource.clip);
 
         // some sort of audio queue
 
