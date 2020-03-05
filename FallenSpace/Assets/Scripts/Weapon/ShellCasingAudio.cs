@@ -2,9 +2,7 @@
 
 public class ShellCasingAudio : MonoBehaviour
 {
-
     private bool audioPlayed;
-
 
     void Awake()
     {
