@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerPoints : MonoBehaviour
 {
@@ -8,14 +9,16 @@ public class PlayerPoints : MonoBehaviour
     public int headshotAward; // set in the unity editor
     public int bodyshotAward; // set in the unity editor
     public int limbshotAward; // set in the unity editor
-    public TextMeshPro HUD_element; // variable to link to the ui element
+
+    public TextMeshPro physicalScoreUI; // variable to link to the ui element
+    public Text canvasScoreUI;
 
     void Awake()
     {
-        HUD_element.text = Points.ToString();
+        physicalScoreUI.text = Points.ToString();
     }
 
-    public void AwardLocationalDamage(string area) // headshot award
+    public void AwardLocationalDamage(string area, bool isTraining) // headshot award
     {
         if (area.Contains("head"))
         {
@@ -30,13 +33,32 @@ public class PlayerPoints : MonoBehaviour
             Points += limbshotAward;
         }
 
-        HUD_element.text = Points.ToString(); // update ui element
+        if (isTraining)
+        {
+            canvasScoreUI.text = Points.ToString();
+        }
+        else
+        {
+            physicalScoreUI.text = Points.ToString(); // update ui element
+        }      
     }
 
-    public void AwardElimination()
+    public void AwardElimination(bool isTraining)
     {
         Points += eliminationAward;
 
-        HUD_element.text = Points.ToString(); // update ui element
+        if (isTraining)
+        {
+            canvasScoreUI.text = Points.ToString();
+        }
+        else
+        {
+            physicalScoreUI.text = Points.ToString(); // update ui element
+        }
+    }
+
+    public void TrainingModeUIReset()
+    {
+        canvasScoreUI.text = "0";
     }
 }
