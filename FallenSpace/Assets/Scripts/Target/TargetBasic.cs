@@ -28,14 +28,19 @@ public class TargetBasic : MonoBehaviour
         _aSource = GetComponent<AudioSource>();
         _animator = GetComponent<Animator>();
         hitboxes = GetComponentsInChildren<BoxCollider>();
-        points = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerPoints>(); // find player
+        points = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerPoints>(); // find points component in player
+
+        if (isTrainingMode)
+        {
+            TargetInactive();
+        }
     }
 
     public void TakeDamageHead(float amount)
     {
         globalHealth -= amount * 2f;
 
-        points.AwardLocationalDamage("head");
+        points.AwardLocationalDamage("head", isTrainingMode);
 
         if (globalHealth <= 0)
         {
@@ -47,7 +52,7 @@ public class TargetBasic : MonoBehaviour
     {
         globalHealth -= amount * 1.5f;
 
-        points.AwardLocationalDamage("body");
+        points.AwardLocationalDamage("body", isTrainingMode);
 
         if (globalHealth <= 0)
         {
@@ -59,7 +64,7 @@ public class TargetBasic : MonoBehaviour
     {
         globalHealth -= amount;
 
-        points.AwardLocationalDamage("limb");
+        points.AwardLocationalDamage("limb", isTrainingMode);
 
         if (globalHealth <= 0)
         {
@@ -71,7 +76,7 @@ public class TargetBasic : MonoBehaviour
     {
         globalHealth -= amount;
 
-        points.AwardLocationalDamage("limb");
+        points.AwardLocationalDamage("limb", isTrainingMode);
 
         if (globalHealth <= 0)
         {
@@ -92,7 +97,7 @@ public class TargetBasic : MonoBehaviour
 
         _aSource.clip = awardSound;
         _aSource.PlayOneShot(_aSource.clip);
-        points.AwardElimination();
+        points.AwardElimination(isTrainingMode);
 
         if (isTrainingMode)
         {
@@ -105,8 +110,6 @@ public class TargetBasic : MonoBehaviour
         _animator.SetBool("Downed", false); // get target up
         _aSource.clip = upSound;
         _aSource.PlayOneShot(_aSource.clip);
-
-        // some sort of audio queue
 
         foreach (Collider hitbox in hitboxes)
         {
@@ -121,5 +124,29 @@ public class TargetBasic : MonoBehaviour
         yield return new WaitForSeconds(resetTime);
 
         targetUp();
+    }
+
+    public void TargetInactive() // training mode start
+    {
+        _animator.SetBool("Downed", true);
+
+        foreach (Collider hitbox in hitboxes)
+        {
+            hitbox.enabled = false;
+        }
+    }
+
+    public void TargetActivate() // training mode start
+    {
+        _animator.SetBool("Downed", false); // get target up
+        _aSource.clip = upSound;
+        _aSource.PlayOneShot(_aSource.clip);
+
+        foreach (Collider hitbox in hitboxes)
+        {
+            hitbox.enabled = true; // re-enable hitboxes
+        }
+
+        globalHealth = baseHealth;
     }
 }
