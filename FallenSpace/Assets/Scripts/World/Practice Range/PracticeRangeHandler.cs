@@ -11,7 +11,7 @@ public class PracticeRangeHandler : MonoBehaviour
 
     [Header("Range Settings")]
     public GameObject RangeTargets;
-    public float playAfter;
+    public float startDelay;
     public float duration = 30.0f;
     public GameObject trigger;
 
@@ -76,7 +76,7 @@ public class PracticeRangeHandler : MonoBehaviour
             _aSource.clip = startSound;
             _aSource.PlayOneShot(_aSource.clip); // START SOUND
 
-            StartCoroutine(ExecuteAfterTime(playAfter));
+            StartCoroutine(ExecuteAfterTime(startDelay));
         }
     }
 
@@ -100,6 +100,7 @@ public class PracticeRangeHandler : MonoBehaviour
     void BeginPracticeRound()
     {
         trigger.GetComponent<BoxCollider>().enabled = false;
+        noteText.text = "";
 
         timer = duration;
 
