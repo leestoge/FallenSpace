@@ -15,10 +15,36 @@ public class Teleporter : MonoBehaviour
     public Text noteText;
     public GameObject canvasScore;
 
+    [Header("Particles & Effects")]
+    public ParticleSystem teleParticle;
+    public Light[] teleLights;
+
+    private float _origLightIntensity;
+    private bool lerpLights = false;
+
     void Awake()
     {
+        _origLightIntensity = teleLights[0].intensity;
         _thePlayer = GameObject.FindGameObjectWithTag("Player");
         rangeEnterScriptInstance = GetComponent<PracticeRangeEnter>();
+    }
+
+    void Update()
+    {
+        if (lerpLights == true)
+        {
+            foreach (Light l in teleLights)
+            {
+                l.intensity = Mathf.Lerp(l.intensity, 4.65f, Time.deltaTime * teleDelay);
+            }
+        }
+        else if (lerpLights == false)
+        {
+            foreach (Light l in teleLights)
+            {
+                l.intensity = Mathf.Lerp(l.intensity, _origLightIntensity, Time.deltaTime * teleDelay);
+            }
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -55,6 +81,7 @@ public class Teleporter : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             FindObjectOfType<AudioManager>().RandomizePitchAndPlay("teleStart");
+            lerpLights = true;
             StartCoroutine(ExecuteAfterTime(teleDelay));
         }
     }
@@ -70,11 +97,8 @@ public class Teleporter : MonoBehaviour
     private void TeleportPlayer()
     {
         FindObjectOfType<AudioManager>().RandomizePitchAndPlay("telePort");
+        teleParticle.Play();
         _thePlayer.transform.position = teleportDestination.transform.position;
-
-        //if (canvasScore.activeSelf == true)
-        //{
-        //    canvasScore.SetActive(false);
-        //}
+        lerpLights = false;
     }
 }
