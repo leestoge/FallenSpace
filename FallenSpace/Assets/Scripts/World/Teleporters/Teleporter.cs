@@ -9,11 +9,9 @@ public class Teleporter : MonoBehaviour
     public float teleDelay;
 
     private GameObject _thePlayer;
-    private PracticeRangeEnter rangeEnterScriptInstance;
 
     [Header("UI")]
     public Text noteText;
-    public GameObject canvasScore;
 
     [Header("Particles & Effects")]
     public ParticleSystem teleParticle;
@@ -26,7 +24,6 @@ public class Teleporter : MonoBehaviour
     {
         _origLightIntensity = teleLights[0].intensity;
         _thePlayer = GameObject.FindGameObjectWithTag("Player");
-        rangeEnterScriptInstance = GetComponent<PracticeRangeEnter>();
     }
 
     void Update()
@@ -68,11 +65,6 @@ public class Teleporter : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             noteText.text = "";
-        }
-
-        if (canvasScore.activeSelf == true)
-        {
-            canvasScore.SetActive(false);
         }
     }
 
